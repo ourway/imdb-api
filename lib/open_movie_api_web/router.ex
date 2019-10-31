@@ -7,5 +7,7 @@ defmodule OpenMovieApiWeb.Router do
 
   scope "/api", OpenMovieApiWeb do
     pipe_through :api
+
+    get "/ping", APIs, :ping
   end
 end
