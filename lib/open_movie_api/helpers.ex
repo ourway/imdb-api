@@ -39,13 +39,11 @@ defmodule OpenMovieApi.Helpers do
   """
   def read_tsv(path, module, func) do
     total = (path |> get_last_id()) / 8192
-    total = 100_000 / 8192
 
     File.stream!(path)
     |> Stream.drop(1)
     |> Flow.from_enumerable(max_demand: 1024)
     |> Flow.map(&extract_line(&1))
-    |> Enum.take(100_000)
     |> Enum.chunk_every(8192)
     |> Enum.map(&apply(module, func, [&1, total]))
   end
