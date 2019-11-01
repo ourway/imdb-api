@@ -23,7 +23,7 @@ defmodule OpenMovieApi.Db do
       type: type,
       title: title,
       isAdult:
-      case isAdult |> String.to_integer do
+        case isAdult |> String.to_integer() do
           0 -> false
           1 -> true
         end,
@@ -35,7 +35,7 @@ defmodule OpenMovieApi.Db do
       endYear:
         case endYear do
           "N" -> -1
-          n -> n  |> String.to_integer()
+          n -> n |> String.to_integer()
         end,
       runtime:
         case runtime do
@@ -43,7 +43,7 @@ defmodule OpenMovieApi.Db do
           "" -> -1
           n -> n |> String.to_integer()
         end,
-        genres: genres |> String.split(",", trim: true)
+      genres: genres |> String.split(",", trim: true)
     }
   end
 end
