@@ -5,6 +5,17 @@ Data is getting updates every day.
 
 API docs are available on: https://imdb.appido.ir/docs
 
+## How it works
+
+This app downloads `imdb datasets` from https://datasets.imdbws.com.
+Downloaded data are huge and IMDd updates it every day.
+
+Using this data, then I extract them [see helpers.ex](http://bit.ly/2PGoz6r), and afer few cleanups,
+I added them to related fragmented `:mnesia` tables.  This way, the data is available on demand and
+very fast.
+
+
+
 ## Install
 
 Run the following
