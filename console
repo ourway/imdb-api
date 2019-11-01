@@ -1,0 +1,2 @@
+#!/usr/bin/env zsh
+iex --erl "+K true +A 56 +P 1000000 -mnesia no_table_loaders 128 -mnesia debug true" -S mix

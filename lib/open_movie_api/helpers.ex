@@ -8,7 +8,7 @@ defmodule OpenMovieApi.Helpers do
   @doc """
   returns integer part of tconst
   """
-  defp get_id(tconst) do
+  def get_id(tconst) do
     tconst
     |> binary_part(2, 7)
     |> String.to_integer()
@@ -38,20 +38,15 @@ defmodule OpenMovieApi.Helpers do
     reads downloaded files from https://datasets.imdbws.com/
   """
   def read_tsv(path, module, func) do
-    total = path |> get_last_id
+    total = (path |> get_last_id()) / 8192
+    total = 100_000 / 8192
 
     File.stream!(path)
     |> Stream.drop(1)
-    |> Flow.from_enumerable(max_demand: 56)
+    |> Flow.from_enumerable(max_demand: 1024)
     |> Flow.map(&extract_line(&1))
-    |> Flow.map(&apply(module, func, [&1]))
-    |> Flow.map(
-      &Logger.debug(fn ->
-        "#{((&1 |> List.first() |> get_id) * 100 / total) |> round}% complete - #{
-          &1 |> List.first()
-        }"
-      end)
-    )
-    |> Enum.to_list()
+    |> Enum.take(100_000)
+    |> Enum.chunk_every(8192)
+    |> Enum.map(&apply(module, func, [&1, total]))
   end
 end

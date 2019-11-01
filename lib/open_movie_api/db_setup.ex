@@ -19,6 +19,8 @@ defmodule OpenMovieApi.DbSetup do
   @crew_table [:tconst, :directors, :writers]
   @principals_table [:nconst, :category, :job, :characters]
 
+  @frag_props [{:node_pool, [node()]}, {:n_fragments, 16}, {:n_disc_copies, 1}]
+
   defp prepare do
     :mnesia.stop()
     :mnesia.delete_schema([node()])
@@ -29,6 +31,7 @@ defmodule OpenMovieApi.DbSetup do
   defp create do
     :mnesia.create_table(Basics, [
       {:disc_copies, [node()]},
+      {:frag_properties, @frag_props},
       {:type, :ordered_set},
       majority: true,
       attributes: @basics_table,
@@ -37,6 +40,7 @@ defmodule OpenMovieApi.DbSetup do
 
     :mnesia.create_table(Ratings, [
       {:disc_copies, [node()]},
+      {:frag_properties, @frag_props},
       {:type, :ordered_set},
       majority: true,
       attributes: @ratings_table,
@@ -45,6 +49,7 @@ defmodule OpenMovieApi.DbSetup do
 
     :mnesia.create_table(Akas, [
       {:disc_copies, [node()]},
+      {:frag_properties, @frag_props},
       {:type, :ordered_set},
       majority: true,
       attributes: @akas_table
@@ -52,6 +57,7 @@ defmodule OpenMovieApi.DbSetup do
 
     :mnesia.create_table(Episodes, [
       {:disc_copies, [node()]},
+      {:frag_properties, @frag_props},
       {:type, :ordered_set},
       majority: true,
       attributes: @episode_table,
@@ -60,6 +66,7 @@ defmodule OpenMovieApi.DbSetup do
 
     :mnesia.create_table(Crew, [
       {:disc_copies, [node()]},
+      {:frag_properties, @frag_props},
       {:type, :ordered_set},
       majority: true,
       attributes: @crew_table
@@ -67,6 +74,7 @@ defmodule OpenMovieApi.DbSetup do
 
     :mnesia.create_table(Principals, [
       {:disc_copies, [node()]},
+      {:frag_properties, @frag_props},
       {:type, :ordered_set},
       majority: true,
       attributes: @principals_table,

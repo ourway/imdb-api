@@ -31,4 +31,13 @@ defmodule OpenMovieApi.Commands do
   def process_principal do
     "data/title.principals.tsv" |> Helpers.read_tsv(Db, :add_principal)
   end
+
+  def process_all do
+    process_basics
+    process_ratings
+    process_episodes
+    process_principal
+    process_akas
+    process_crew
+  end
 end
