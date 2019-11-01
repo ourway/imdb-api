@@ -8,5 +8,6 @@ erl_crash.dump
 *.beam
 .env
 /data
-/*node*
 /config/*.secret.exs
+erl_crash.dump
+Mnesia*/

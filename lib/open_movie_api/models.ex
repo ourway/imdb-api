@@ -41,7 +41,7 @@ defmodule OpenMovieApi.Models.Crew do
             writers: []
 end
 
-defmodule OpenMovieApi.Model.Principal do
+defmodule OpenMovieApi.Models.Principal do
   @moduledoc false
 
   defstruct nconst: nil,

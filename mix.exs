@@ -19,7 +19,7 @@ defmodule OpenMovieApi.MixProject do
   def application do
     [
       mod: {OpenMovieApi.Application, []},
-      extra_applications: [:logger, :runtime_tools, :mnesia]
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 
@@ -37,6 +37,7 @@ defmodule OpenMovieApi.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:flow, "~> 0.15"},
+      {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
       {:plug_cowboy, "~> 2.0"}
     ]
   end
