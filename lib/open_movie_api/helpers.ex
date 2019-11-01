@@ -38,7 +38,7 @@ defmodule OpenMovieApi.Helpers do
     reads downloaded files from https://datasets.imdbws.com/
   """
   def read_tsv(path, module, func) do
-    total = (path |> get_last_id()) / 8192
+    total = path |> get_last_id()
 
     File.stream!(path)
     |> Stream.drop(1)
