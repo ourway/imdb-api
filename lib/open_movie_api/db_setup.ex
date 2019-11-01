@@ -12,7 +12,7 @@ defmodule OpenMovieApi.DbSetup do
 
   require Logger
 
-  @basics_table [:tconst, :type, :title, :isAdult, :start, :end, :runtime, :genres]
+  @basics_table [:tconst, :type, :title, :isAdult, :startYear, :endYear, :runtime, :genres]
   @ratings_table [:tconst, :rate, :votes]
   @akas_table [:tconst, :region, :lang]
   @episode_table [:tconst, :parent, :season, :episode]
@@ -27,7 +27,7 @@ defmodule OpenMovieApi.DbSetup do
   end
 
   defp create do
-    :mnesia.create_table(:basics, [
+    :mnesia.create_table(Basics, [
       {:disc_copies, [node()]},
       {:type, :ordered_set},
       majority: true,
@@ -35,7 +35,7 @@ defmodule OpenMovieApi.DbSetup do
       index: [:isAdult]
     ])
 
-    :mnesia.create_table(:ratings, [
+    :mnesia.create_table(Ratings, [
       {:disc_copies, [node()]},
       {:type, :ordered_set},
       majority: true,
@@ -43,14 +43,14 @@ defmodule OpenMovieApi.DbSetup do
       index: [:rate, :votes]
     ])
 
-    :mnesia.create_table(:akas, [
+    :mnesia.create_table(Akas, [
       {:disc_copies, [node()]},
       {:type, :ordered_set},
       majority: true,
       attributes: @akas_table
     ])
 
-    :mnesia.create_table(:episodes, [
+    :mnesia.create_table(Episodes, [
       {:disc_copies, [node()]},
       {:type, :ordered_set},
       majority: true,
@@ -58,14 +58,14 @@ defmodule OpenMovieApi.DbSetup do
       index: [:parent]
     ])
 
-    :mnesia.create_table(:crew, [
+    :mnesia.create_table(Crew, [
       {:disc_copies, [node()]},
       {:type, :ordered_set},
       majority: true,
       attributes: @crew_table
     ])
 
-    :mnesia.create_table(:principals, [
+    :mnesia.create_table(Principals, [
       {:disc_copies, [node()]},
       {:type, :ordered_set},
       majority: true,
