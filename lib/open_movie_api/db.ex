@@ -6,6 +6,42 @@ defmodule OpenMovieApi.Db do
   alias OpenMovieApi.Models
   alias OpenMovieApi.Helpers
 
+  def exec(func) do
+    :mnesia.activity(:transaction, func, [], :mnesia_frag)
+  end
+
+  def get_rating(tconst) do
+    f = fn ->
+      [{_, _, rate, votes}] = :mnesia.read({Ratings, tconst})
+
+      %{
+        rate: rate,
+        votes: votes
+      }
+    end
+
+    exec(f)
+  end
+
+  def get_basic(tconst) do
+    f = fn ->
+      [{_, _, type, title, is_adult, start_year, end_year, runtime, genres}] =
+        :mnesia.read({Basics, tconst})
+
+      %{
+        type: type,
+        title: title,
+        is_adult: is_adult,
+        start_year: start_year,
+        end_year: end_year,
+        runtime: runtime,
+        genres: genres
+      }
+    end
+
+    exec(f)
+  end
+
   def record_data(models, f, total) do
     last_const = models |> List.last() |> Map.get(:tconst)
 
@@ -21,7 +57,7 @@ defmodule OpenMovieApi.Db do
     last_id = last |> Helpers.get_id()
     progress = last_id * 100 / total
     Logger.debug(fn -> "#{progress}% completed. #{last_id}" end)
-    :mnesia.activity(:transaction, f, [], :mnesia_frag)
+    exec(f)
   end
 
   def add_principal(lines, total) do

@@ -35,9 +35,9 @@ defmodule OpenMovieApi.Commands do
   def process_all do
     process_basics
     process_ratings
-    process_episodes
-    process_principal
-    process_akas
-    process_crew
+    # process_episodes
+    # process_principal
+    # process_akas
+    # process_crew
   end
 end

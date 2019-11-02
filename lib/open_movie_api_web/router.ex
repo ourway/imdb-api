@@ -9,5 +9,6 @@ defmodule OpenMovieApiWeb.Router do
     pipe_through :api
 
     get "/ping", APIs, :ping
+    get "/:tconst", APIs, :info
   end
 end
