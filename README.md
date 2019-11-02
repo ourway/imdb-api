@@ -54,10 +54,10 @@ mix do deps.compile, compile
 cp .env.example .env
 source .env
 bash data/download.sh
-mix run -e OpenMovieApi.DbSetup.run
+MIX_ENV=prod mix run -e OpenMovieApi.DbSetup.run
 echo Processing the data. Will take few hours. Please wait ...
-mix run -e OpenMovieApi.Commands.process_all
-mix phx.server
+MIX_ENV=prod mix run -e OpenMovieApi.Commands.process_all
+PORT=8014 MIX_ENV=prod mix phx.server
 ```
 
 or simply run `./run.sh`.
